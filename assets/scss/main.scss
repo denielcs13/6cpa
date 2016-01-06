@@ -1,0 +1,1502 @@
+
+/*	CSS: implied media=all
+
+	SASS/SCSS file modify this file NOT main.css
+	
+	==========================================================================
+	Index: search by tag using the backtick prefix (`index)
+	==========================================================================
+	`default	Default styles
+	`header		Header elements
+	`footer		Footer elements
+	`colors		
+	`helper		Useful common classes
+	`media		Media Queries
+	`print		Styles for print media
+	`Reference	links to technique references
+	`draft		properties that need revision
+	`vendor		Vendor-specific properties
+
+	
+	Style guide.
+	==========================================================================
+	* Avoid using IDs where possible: http://oli.jp/2011/ids/#specifity-wars
+	* CSS display:
+		---
+		---
+		---
+		Section title
+		---
+		selector,
+		selector {
+			property
+			property
+				vendor property
+			property
+		}
+		---
+*/
+
+/* ==========================================================================
+   `variables `colors
+   ========================================================================== */
+
+	$aaGrey: #717171; /*Lightest grey that passes WCAG2.0-AA contrast on white*/
+	$dGrey: #2F3030; 
+	
+	/*Medication Adherence Programmes*/
+	$map: #2f3f5c;
+	$map-d: #1b2435;
+
+	/*Medication Management Programmes*/
+	$mmp: #587aa1;
+	$mmp-d: #425c79;
+
+	/*Pharmacy Trial Programme*/
+	/*$ptp: #829619; !WCAG
+	$ptp-d: #5e6d12;*/
+	$ptp: #6b7f00;
+	$ptp-d: #577000;
+	
+	/*Rural Support Programmes*/
+	$rsp: #50386c;
+	$rsp-d: #38274b;
+	
+	/*Aboriginal & Torres Strait Islander Specific Programmes*/
+	$atsi: #e98136;
+	$atsi-d: #9f5016;
+	
+	/*eHealth Programmes*/
+	$ehealth: #813c57;
+	$ehealth-d: #56283a;
+	
+	/*Resources*/
+	$resources: #737373;
+	$resources-d: #505050;
+	
+	/*Generic*/
+	$gen: #fcc32e;
+	$gen-d: #e17b1f;
+	
+	
+	
+/* ==========================================================================
+   `mixins
+   ========================================================================== */
+	@import "compass/css3";
+	
+	/* Usage: use pixel size */
+	@mixin font-size($sizeValue: 1.6) {
+	 	font-size: ($sizeValue) + px;
+	 	font-size: ($sizeValue/10) + rem;
+	}
+	@mixin background-rgba($c,$o){
+		background-color: $c;
+		background-color: rgba($c,$o);
+	}
+	@mixin gradient($a,$b) {
+		background: $a; /* Old browsers */
+		background: -moz-linear-gradient(45deg,  $b 0%, $a 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,$b), color-stop(100%,$a)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(45deg,  $b 0%,$a 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(45deg,  $b 0%,$a 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(45deg,  $b 0%,$a 100%); /* IE10+ */
+		background: linear-gradient(45deg,  $b 0%,$a 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$b}', endColorstr='#{$a}',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	}
+	@mixin font-mont{
+		font-family: 'Montserrat', sans-serif;
+	}
+
+
+/* ==========================================================================
+   `default
+   ========================================================================== */
+   
+	html{font-size: 62.5%;}
+	html, button,input,select,textarea {
+		color: #222;
+	}
+	
+	body {
+		background-color:white;
+		font-size: 1.2rem;
+		line-height: 1.5;
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	/*W3C AA Placeholder Text of white inputs*/
+	::-webkit-input-placeholder {color:$aaGrey;}
+	:-moz-placeholder {color:$aaGrey;}
+	:-ms-input-placeholder {color:$aaGrey;}
+
+	/*Example CSS3 validation*/
+	input[type=email]:valid{color:green;}
+	input[type=email]:invalid{color:red;}
+
+	hr {
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 1px solid #ccc;
+		margin: 1em 0;
+		padding: 0;
+	}
+
+	/*conditional messages*/
+	#msgNojs,
+	#msgLegacy{
+		display:block;
+		font-family:sans-serif;
+		width:100%;
+		padding:0.4em 0;
+		@include font-size(15);
+		font-weight:bold;
+		text-align:center;
+		background-color:$gen;
+		text-decoration:none;
+		color:black;
+		border-bottom:solid 1px darken($gen, 15%);
+	}
+	
+	#msgNojs:hover,
+	#msgNojs:focus,
+	#msgNojs:active,
+	#msgLegacy:hover,
+	#msgLegacy:focus,
+	#msgLegacy:active {
+		background-color:$gen-d;
+		color:black;
+	}
+	
+	.wrapper{
+		width:80%;
+		max-width:1100px;
+		margin:0 auto;
+	}
+	.rel{position:relative;}
+	
+/* ==========================================================================
+   `font
+   ========================================================================== */	
+	@font-face {
+		font-family: 'icomoon';
+		src:url('../fonts/icomoon.eot?rx0ru5');
+		src:url('../fonts/icomoon.eot?#iefixrx0ru5') format('embedded-opentype'),
+			url('../fonts/icomoon.ttf?rx0ru5') format('truetype'),
+			url('../fonts/icomoon.woff?rx0ru5') format('woff'),
+			url('../fonts/icomoon.svg?rx0ru5#icomoon') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	[class^="icon-"], [class*=" icon-"] {
+		font-family: 'icomoon';
+		speak: none;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+	
+		/* Better Font Rendering =========== */
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	
+	.icon-arrow:before {
+		content: "\e600";
+	}
+	.icon-arrow,
+	a .icon-arrow { display:inline-block; margin-left:0.5em; text-decoration:none}
+
+/* ==========================================================================
+   `header
+   ========================================================================== */
+
+/* ribbon
+   -------------------------------------------------------------------------- */
+	.ribbon{
+		background:#f7f7f7;
+		color:#3c3c3c;
+		padding:16px 0;
+		@include font-size(14);
+		@include font-mont();
+		line-height:30px;
+	}
+	.ribbon a{
+		color:#3c3c3c;
+		text-decoration:none;
+		
+		&:hover,
+		&:focus{
+			color:black;
+			text-decoration:underline;
+		}
+	}
+	.ribbon ul{
+		margin:0;
+		padding:0;
+	}
+	.accessibility{
+		float:left;
+	}
+	.accessibility a{
+		display:inline-block;
+		margin:0 1em;
+	}
+	.group{
+		float:right;
+	}
+	.ribbon .globalNav{
+		float:left;
+		list-style:none;
+		margin:0; padding:0;
+		margin-right:1em;
+	}
+	.globalNav li{
+		display:inline-block;
+		margin:0 1em;
+	}
+	.ribbon form{
+		float:right;
+		border-bottom:solid 1px #bebebe;
+	}
+	.ribbon .search{
+		border:none;
+		background-color:transparent;
+		padding:5px;
+		border-top:solid 1px #f7f7f7;
+		height:20px;
+		float:left;
+	}
+	.ribbon .search:focus{
+		background-color:white;
+		outline:none;
+		border-top:solid 1px #bebebe;
+	}
+	.ribbon .go{
+		width:30px;
+		height:30px;
+		border:none;
+		background-color:transparent;
+		text-indent:-99em;
+		overflow:hidden;
+		background-position:center center;
+		background-repeat:no-repeat;
+		background-image:url(../dev/ribbon-go-bg.png);
+		float:left;
+	}
+	.ribbon .go:hover,
+	.ribbon .go:focus{
+		background-color:#bebebe;
+	}
+
+/* banner
+   -------------------------------------------------------------------------- */
+	.logo{
+		float:left;
+		margin:0;
+		padding:0;
+	}
+	.logo a{
+		display:block;
+		overflow:hidden;
+		width:208px;
+		height:105px;
+		overflow:hidden;
+		background-image:url(../dev/6cpa-logo.gif);
+		background-position:center center;
+		background-repeat:no-repeat;
+		text-indent:-99em;
+	}
+	.banner{
+		@include font-mont();
+	}
+	.banner nav a{
+		color:$dGrey;
+		@include font-size(14);
+		text-transform:uppercase;
+		text-decoration:none;
+		display:inline-block;
+	}
+	.banner nav a:hover,
+	.banner nav a:focus{
+		color:#717171;
+	}
+	.banner nav{
+		float:right;
+	}
+	.banner ul{
+		margin:0;
+		padding:0;
+	}
+	.banner ul,
+	.banner li{
+		margin:0;
+	}
+	.banner li{
+		display:inline;
+		margin-left:2em;
+		line-height:105px;
+	}
+
+
+
+
+
+/* ==========================================================================
+   `nav
+   ========================================================================== */
+   
+	#menuToggle{
+		display: none;
+		background-color:$gen;
+		color:black;
+		text-decoration:none;
+		padding:1em;
+		text-align:center;
+		text-transform:uppercase;
+		@include font-mont();
+		@include font-size(14);
+		@include transition(all 300ms ease);
+		-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.5);
+		box-shadow: 0 2px 2px 0 rgba(0,0,0,0.5);
+		margin:0 auto;
+		width:80%;
+	}
+	#menuToggle:hover,
+	#menuToggle:focus{
+		background-color:#DBDBDB;
+	}
+   
+/* nav colours
+   -------------------------------------------------------------------------- */
+	nav .map{
+		@include gradient($map, $map-d);
+		border-top:solid 1px lighten($map,15%);
+		color:white;
+	}
+	.initiatives ul a.map{&:hover, &:focus{color:$map; background:white;}}
+	
+	nav .mmp{
+		@include gradient($mmp, $mmp-d);
+		border-top:solid 1px lighten($mmp,15%);
+		color:white;
+	}
+	.initiatives ul a.mmp{&:hover, &:focus{color:$mmp; background:white;}}
+	
+	nav .ptp{
+		@include gradient($ptp, $ptp-d);
+		border-top:solid 1px lighten($ptp,15%);
+		color:white;
+	}
+	.initiatives ul a.ptp{&:hover, &:focus{color:$ptp; background:white;}}	
+	
+	nav .rsp{
+		@include gradient($rsp, $rsp-d);
+		border-top:solid 1px lighten($rsp,15%);
+		color:white;
+	}
+	.initiatives ul a.rsp{&:hover, &:focus{color:$rsp; background:white;}}	
+	
+	nav .atsi{
+		@include gradient($atsi, $atsi-d);
+		border-top:solid 1px lighten($atsi,15%);
+		color:white;
+	}
+	.initiatives ul a.atsi{&:hover, &:focus{color:$atsi; background:white;}}
+	
+	nav .ehealth{
+		@include gradient($ehealth, $ehealth-d);
+		border-top:solid 1px lighten($ehealth,15%);
+		color:white;
+	}
+	.initiatives ul a.ehealth{&:hover, &:focus{color:$ehealth; background:white;}}
+	
+	nav .resources{
+		@include gradient($resources, $resources-d);
+		border-top:solid 1px lighten($resources,15%);
+		color:white;
+	}
+	.initiatives ul a.resources{&:hover, &:focus{color:$resources; background:white;}}
+	
+/* nav stuff
+   -------------------------------------------------------------------------- */
+	.fab{
+		/*Floating Action Button*/
+		position:absolute;
+		width:105px;
+		height:105px;
+		overflow:hidden;
+		text-indent:-99em;
+		left:0;
+		top:0;
+		border-radius:50%;
+		background-color:white;
+		background-image:url(../dev/fab-bg.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+		color:black;
+		text-transform:uppercase;
+		-webkit-box-shadow: 0 10px 10px 0 rgba(0,0,0,0.2);
+		box-shadow: 0 10px 10px 0 rgba(0,0,0,0.2);
+		@include transition(all 300ms ease);
+	}
+	.fab:hover,
+	.fab:focus{
+		color:white;
+		background-color:#fee197;
+		-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+		box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+	}
+	
+	.initiatives{
+		position:relative;
+		@include font-mont();
+		@include font-size(14);
+		line-height:1.2;
+	}
+	.initiatives nav{
+		position:relative;
+		padding-top:145px;
+	}
+	.initiatives ul{
+		list-style:none;
+		margin:0;
+		padding:0;
+		width:100%;
+		width:calc(100% - 1px);
+		-webkit-box-shadow: 0 15px 32px 0 rgba(0,0,0,0.4);
+		box-shadow: 0 15px 32px 0 rgba(0,0,0,0.4);
+		background-color:#999999;
+	}
+	.initiatives li{
+		display:block;
+		width:14.28571428571429%;
+		float:left;
+	}
+	.initiatives ul a{
+		display:block;
+		text-decoration:none;
+		padding:40px 15px;
+		color:white;
+		min-height:7em;
+		text-transform:uppercase;
+		font-weight:bold;
+	}
+	.initiatives ul a:hover,
+	.initiatives ul a:focus{
+		filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+		background:white;
+		border-top-color:#E5E5E5;
+		color:black;
+		outline:none;
+	}
+	.navArea{
+		position: relative;
+		padding-top:60px;
+		z-index: 2;
+		bottom: 10%;
+		width: 100%;
+		padding-bottom: 50px;
+	}
+	.navBG{
+		z-index: 1;
+		position: absolute;
+		width: 100%;
+		top: 0;
+		bottom:0;
+		overflow:hidden;
+	}
+	.navBG .wrapper{
+		position:relative;
+	}
+	.navBG .bg{
+		background:#ffc301;
+		position:absolute;
+		left:0; width:100%;
+		bottom:0; height:91%;
+	}
+	.navBG img{
+		width:100%;
+		max-width:100%;
+		display:block;
+	}
+	.contentPage .initiatives nav,
+	.contentPage .navArea{
+		padding-top:0;
+	}
+	.contentPage .navBG{
+		height:16em;
+	}
+	.contentPage #content{
+		margin:80px 0;
+	}
+	
+	#content .col_1-of-3 .padding{
+		padding-right:0;
+	}
+	#content .col_2-of-3 .padding{
+		padding-left:0;
+	}
+	
+	.content{
+		@include font-size(14);
+		color:#3e3e3e;
+		line-height:1.5;
+	}
+	.content hr{
+		  border-top:solid 5px #bebebe;
+	}
+	.content a{
+		color:$mmp;
+		&:hover,
+		&:focus{
+			color:$map;
+		}
+	}
+	.content h1{
+		@include font-mont();
+		text-transform:uppercase;
+		font-size:2.1em;
+		margin-top:0;
+		margin-bottom:25px;
+	}
+	.content .resourceList{
+		list-style:none;
+		margin:0; padding:0;
+		margin-bottom:2em;
+	}
+	.content .resourceList li{
+		margin-bottom:1.5em;
+	}
+	.content aside h2{
+		font-size:1.3em;
+		@include font-mont();
+	}
+	.intro{
+		@include font-mont();
+		font-size:1.2em;
+		line-height:1.3;
+		max-width:60em;
+		margin-bottom:25px;
+	}
+	.pageNav{
+		list-style:none;
+		margin:0; padding:0;
+		@include font-mont();
+		text-transform:uppercase;
+	}
+	.pageNav li{
+		display:block;
+		float:left;
+	}
+	.content .pageNav a{
+		display:block;
+		background-color:$mmp;
+		padding:15px 2.5em;
+		color:white;
+		text-decoration:none;
+		margin-right:20px;
+		margin-bottom:20px;
+		@include transition(all 300ms ease);
+		
+		&:hover,
+		&:focus{
+			background-color:$resources-d;
+		}
+	}
+	.sideBar{
+		@include font-size(13);
+	}
+	.collapsible-container h2,
+	.collapsible-container h3,
+	.collapsible-container h4,
+	.collapsible-container h5{
+		@include font-size(18);
+	}
+	.collapsible-heading-toggle{
+		display:block;
+		border-bottom:solid 1px #999999;
+		padding:0.2em 0;
+		text-decoration:none;
+		padding-left:30px;
+		background-position:left center;
+		background-repeat:no-repeat;
+		background-image:url(../dev/collapsible-open.png);
+	}
+	.collapsible-heading-toggle:focus{
+		border-bottom:solid 2px #333333;
+	}
+	.open .collapsible-heading-toggle{
+		background-image:url(../dev/collapsible-close.png);
+	}
+	.collapsible-heading-toggle:focus{
+		outline:none;
+	}
+	.js .collapsible-content{
+		display:none;
+	}
+	.js .open .collapsible-content{
+		display:block;
+	}
+	.collapsible-content p{
+		margin-top:0;
+	}
+	.collapsible-container{
+		margin-bottom:2em;
+	}
+	
+	
+/* `flyOut
+   -------------------------------------------------------------------------- */
+	.flyOut{
+		position:absolute;
+		width:100%;
+		z-index:99;
+		@include font-size(14);
+		display:none;
+
+		.spacer:focus{
+			outline:none !important;
+		}
+	}
+	.flyOut .navButton{
+		position: absolute;
+		top:0;
+		right:0;
+		width: 50px;
+		height: 50px;
+		background-color:transparent;
+		z-index: 999;
+		text-indent:-99em;
+		overflow:hidden;
+		background-image:url(../dev/collapsible-close.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.flyOut .wrapper{
+	}	
+	.flyOut .spacer{
+		position: relative;
+		background-color:#e4e4e4;
+		/*display:table;*/
+		-webkit-box-shadow: 0 15px 32px 0 rgba(0,0,0,0.6);
+		box-shadow: 0 15px 32px 0 rgba(0,0,0,0.6);
+		margin:0 30px;
+	}
+	.flyOut .padding{
+		padding:40px;
+	}
+	/*.flyOut .spacer:after {
+		bottom: 100%;
+		left: 50%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: rgba(228, 228, 228, 0);
+		border-bottom-color: #e4e4e4;
+		border-width: 30px;
+		margin-left: -30px;
+	}*/
+	.flyOut .promo{
+		display:table-cell;
+		vertical-align:middle;
+		width:50%;
+		background-color:#333;
+		color:white;
+		background-repeat:no-repeat;
+		background-position:right center;
+	}
+	.flyOut .promo .padding{
+		padding-right:136px;
+	}
+	.flyOut .promo h2{
+		font-size:2.1em;
+		margin:0;
+	}
+	.flyOut .promo .buttonBox{
+		margin:50px 0 0 0;
+	}
+	.flyOut .promo .button{
+		padding:1em 1.5em;
+		background-color:white;
+		color:#e4e4e4;
+		display:inline-block;
+		@include font-mont();
+		font-weight:bold;
+		text-decoration:none;
+		text-transform:uppercase;
+		@include font-size(14);
+		border:solid 3px white;
+		-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.5);
+		box-shadow: 0 2px 2px 0 rgba(0,0,0,0.5);
+		@include transition(all 300ms ease);
+		
+		&:hover,
+		&:focus{
+			-webkit-box-shadow: 0 0px 0px 0 rgba(0,0,0,0.5);
+			box-shadow: 0 0px 0px 0 rgba(0,0,0,0.5);	
+		}
+	}
+	.flyOut .subNav{
+		display:table-cell;
+		vertical-align:middle;
+		width:50%;
+		@include font-size(14);
+	}
+	.flyOut .subNav ul{
+		list-style:none;
+		margin:0;
+	}
+	.flyOut .subNav li{
+		border-bottom:solid 1px #d6d6d6;
+	}
+	.flyOut .subNav a{
+		display:block;
+		padding:0.5em 0;
+		text-decoration:none;
+		
+		&:hover,
+		&:focus{
+			font-weight:bold;
+			text-decoration:underline;
+		}
+	}
+	
+	
+/* `flyOut colours
+   -------------------------------------------------------------------------- 
+		Colours for flyout
+		$c = main color,
+	 	$bt = button text,
+		$pt = promo text,
+		$at = link text,
+	*/
+	@mixin flyoutC($c,$bt,$pt,$at){
+		.promo{
+			background-color:$c;
+			color:$pt;
+		}
+		.promo .button{
+			color:$bt;
+			&:hover,
+			&:focus{
+				border-color:darken($c,10%);
+				background-color:darken($c,5%);
+				color:white;
+			}
+		}
+		.subNav a{
+			color:$at;
+		}
+	}
+	.flyOut.map{@include flyoutC($map,$map,white,$map); .promo{background-image:url(../dev/flyout-map.jpg);}}
+	.flyOut.mmp{@include flyoutC($mmp,$mmp,white,$mmp); .promo{background-image:url(../dev/flyout-mmp.jpg);}}
+	.flyOut.ptp{@include flyoutC($ptp,$ptp,white,$ptp);	.promo{background-image:url(../dev/flyout-ptp.jpg);}}
+	.flyOut.rsp{@include flyoutC($rsp,$rsp,white,$rsp);	.promo{background-image:url(../dev/flyout-rsp.jpg);}}
+	.flyOut.atsi{@include flyoutC($atsi-d,$atsi-d,white,$atsi-d);	.promo{background-image:url(../dev/flyout-atsi.jpg);}}
+	.flyOut.ehealth{@include flyoutC($ehealth,$ehealth,white,$ehealth);	.promo{background-image:url(../dev/flyout-ehealth.jpg);}}
+	.flyOut.resources{@include flyoutC($resources,$resources,white,$resources);	.promo{background-image:url(../dev/flyout-resources.jpg);}}
+	.flyOut.gen{@include flyoutC($gen,#333333,#333333,#333333);	.promo{background-image:url(../dev/flyout-gen.jpg);}}
+	.flyOut.gen .promo .button:hover,
+	.flyOut.gen .promo .button:hover:focus{color:#333;}
+   
+   
+/* ==========================================================================
+   `layout
+   ========================================================================== */
+	.col_1-of-2{
+		float:left;
+		width:50%;
+	}
+	.col_1-of-3{
+		float:left;
+		width:33.33333333%;
+	}
+	.col_2-of-3{
+		float:left;
+		width:66.66666%;
+	}
+	
+	.padding{
+		padding:20px;
+	}
+	
+	
+/* home page news elements
+   -------------------------------------------------------------------------- */
+	.newsSection{
+		padding:60px 0;
+	}
+	.newsSection h2{
+		text-transform:uppercase;
+		@include font-mont();
+		color:$dGrey;
+	}
+	.newsFeature .img{
+		width:40%;
+		float:right;
+		margin-left:20px;
+		margin-bottom:20px;
+		
+		img{
+			width:100%;
+		}
+	}
+	.newsFeature,
+	.newsList{
+		border-top:solid 5px #bebebe;
+		background-color:#f9f9f9;
+	}
+	.newsFeature{
+		margin-right:4%;
+	}
+	.newsList{
+		margin-left:4%;
+	}
+	.newsFeature a{
+		color:#3f6da1;
+	}
+	.newsFeature a:hover,
+	.newsFeature a:focus{
+		color:#425c79;
+	}
+	.newsFeature h3{
+		@include font-mont();
+		font-size:1.3em;
+	}
+	.newsFeature,
+	.newsList{
+		@include font-size(14);
+	}
+	.newsList h3{
+		@include font-mont();
+		margin:0;
+		padding:0;
+		border-bottom:solid 1px #dbdbdb;
+		font-size:1em;
+		text-transform:uppercase;
+	}
+	.newsList h3 a{
+		color:#303030;
+		text-decoration:none;
+	}
+	.newsList ul{
+		list-style:none;
+		padding:0; margin:0;
+	}
+	.newsList li{
+		border-bottom:solid 1px #dbdbdb;
+	}
+	.newsList a{
+		display:block;
+		padding:20px;
+		color:#3f6da1;
+		@include transition(all 300ms ease);
+		font-size:1.1em;
+		font-weight:bold;
+		text-decoration:none;
+	}
+	.newsList img{
+		float:left;
+		margin-right:20px;
+	}
+	.newsList a:hover,
+	.newsList a:focus{
+		background-color:#e8e8e8;
+	}
+
+	
+/* home page promotions
+   -------------------------------------------------------------------------- */
+	.promotions{
+		background-color:#e4e4e4;
+		padding:7em 0;
+		@include font-mont();
+	}
+	.promotions .label{
+		margin:0;
+		padding:20px;
+		text-transform:uppercase;
+		@include font-size(12);
+		min-height:3em;
+	}
+	.promotions a{
+		display:block;
+		background-color:#717171;
+		color:white;
+		text-decoration:none;
+		@include transition(all 300ms ease);
+	}
+	.promotions h2{
+		margin:0;
+		padding:20px;
+		@include font-size(24);
+		line-height:1.1;
+		border-bottom:solid 1px black;
+		min-height:6em;
+	}
+	.promotions a:hover h2,
+	.promotions a:focus h2,{
+		text-decoration:underline;	
+	}
+	.promotions .cta{
+		text-transform:uppercase;
+		border-top:solid 1px grey;
+		padding:20px;
+		@include transition(all 300ms ease);
+		font-size:1em;
+	}
+	
+	/*mixin for promotion link colours*/
+	@mixin promotions($c){
+		background-color:$c;
+		h2{border-bottom-color:darken($c,10%);}
+		.cta{border-top-color:lighten($c,10%);}
+		&:hover,
+		&:focus{
+			background-color:darken($c,10%);
+			.cta{background-color:lighten($c,10%);}
+		}
+	}
+	.promotions .map{		@include promotions($map); }
+	.promotions .mmp{		@include promotions($mmp); }
+	.promotions .ptp{		@include promotions($ptp); }
+	.promotions .rsp{		@include promotions($rsp); }
+	.promotions .atsi{		@include promotions($atsi); }
+	.promotions .ehealth{	@include promotions($ehealth); }
+	.promotions .resources{	@include promotions($resources); }
+	.promotions .gen{		@include promotions($gen); color:black; }
+
+
+/* ==========================================================================
+   `content
+   ========================================================================== */
+
+	.content p{
+		margin-top:0;
+		margin-bottom:2em;
+	}
+		
+	.content form{
+		margin-top:2em;
+		margin-bottom:2em
+	}
+	.content fieldset{
+		padding:30px;
+		border-radius:4px;
+		margin-bottom:15px;
+		border-color:#dbdbdb;
+	}
+	.content legend{
+		font-size:1.3em;
+		padding: 0 10px;
+		@include font-mont();
+		text-transform:uppercase;
+	}
+	.content form p{margin-bottom:1em;}	
+	.content select{
+		width:100%; padding:2%;
+		border-radius:4px;
+		border:solid 1px #c0c0c0;
+	}
+	.content input[type="text"],
+	.content input[type="search"],
+	.content input[type="email"],
+	.content textarea{
+		width:96%; padding:2%;
+		border-radius:4px;
+		border:solid 1px #c0c0c0;
+	}
+	.content input[type="text"]:focus,
+	.content input[type="search"]:focus,
+	.content input[type="email"]:focus,
+	.content textarea:focus,
+	.content select:focus{
+		border-color:$resources;
+		outline:none;
+		background-color:white;
+	}
+	.content .button{
+		display:inline-block;
+		padding:1em;
+		background-color:$resources;
+		border:none;
+		color:white;
+		min-width:150px;
+		box-shadow:0 2px 2px 0 rgba(0,0,0,0.5);
+		border:solid 2px $resources;
+		border-bottom-color:$resources;
+		font-weight:bold;
+		@include transition(all 150ms ease);
+	}
+	.content .button:hover,
+	.content .button:focus{
+		border-color:$resources;
+		background-color:$resources-d;
+		outline:none;
+		box-shadow:0 0px 0px 0 rgba(0,0,0,0.5);
+	}
+	.content .button:active{
+		border-color:$resources;
+		box-shadow:0 0px 0px 0 rgba(0,0,0,0.5);
+		background-color:white;
+		color:$resources;
+	}
+
+
+	textarea,
+	input[type="search"],
+	input[type="email"]{
+		-webkit-appearance: none;
+		-moz-appearance:    none;
+		appearance:         none;
+		border-radius:0px;
+	}
+	select{border-radius:4px;}
+
+/* `content colours
+   -------------------------------------------------------------------------- */
+
+	@mixin contentPageC($c,$cd){
+		.content .pageNav a{
+			background-color:$c;
+			&:hover,
+			&:focus{background-color:$cd;}
+		}
+		.content input[type="text"]:focus,
+		.content input[type="search"]:focus,
+		.content input[type="email"]:focus,
+		.content textarea:focus,
+		.content select:focus{
+			border-color:$c;
+		}
+		.content .button{
+			background-color:$c;
+			border-color:$c;
+			border-bottom-color:$c;
+			&:hover,
+			&:focus{background-color:$cd;}
+			&:active{
+				border-color:$c;
+				background-color: white;
+				color:$c;	
+			}
+		}
+	}
+
+	.map{@include contentPageC($map,$map-d);}
+	.mmp{@include contentPageC($mmp,$mmp-d);}
+	.ptp{@include contentPageC($ptp,$ptp-d);}
+	.rsp{@include contentPageC($rsp,$rsp-d);}
+	.atsi{@include contentPageC($atsi,$atsi-d);}
+	.ehealth{@include contentPageC($ehealth,$ehealth-d);}
+	.resources{@include contentPageC($resources,$resources-d);}
+
+	.gen{
+		.content .pageNav a{
+			background-color:$gen;
+			color:black;
+			&:hover,
+			&:focus{background-color:$gen-d; border-color:$gen;}
+		}
+		.content input[type="text"]:focus,
+		.content input[type="search"]:focus,
+		.content input[type="email"]:focus,
+		.content textarea:focus,
+		.content select:focus{
+			border-color:$gen-d;
+		}
+		.content .button{
+			background-color:$gen;
+			border-color:$gen;
+			border-bottom-color:$gen;
+			color:black;
+			&:hover,
+			&:focus{background-color:$gen;border-color:$gen-d;}
+			&:active{
+				border-color:$gen;
+				background-color: white;
+				color:black;	
+			}
+		}
+	}
+
+
+/* ==========================================================================
+   `Footer
+   ========================================================================== */
+	
+	footer{
+		text-align:center;
+		color:white;
+		background:#505050;
+		padding:50px 0;
+		@include font-size(12);
+	}
+	footer a{
+		color:white;
+	}
+	footer a:hover,
+	footer a:focus{
+		color:#B9B9B9;
+	}
+	footer ul{
+		@include font-size(13);
+		@include font-mont();
+		list-style:none;
+	}
+	footer li{
+		display:inline-block;
+		padding:0 1em;
+		margin-bottom:2em;
+	}
+	footer ul,
+	footer p{
+		margin:0;
+		padding:0;
+	}
+
+/* ==========================================================================
+   `media queries
+   ========================================================================== */
+
+	@media screen and (max-width:1300px) {
+		.wrapper{
+			width:95%;
+		}
+	}
+
+	@media screen and (max-width:1023px) {
+		.initiatives ul a{
+			min-height:4em;
+		}
+	}
+	@media screen and (max-width:960px) {
+		.initiatives li{
+			width:25%;
+		}
+		.newsFeature .img{
+			display:none;
+		}
+		.initiatives nav{
+			padding-top:130px;
+		}
+		.banner nav{
+			width:60%;
+		}
+		.banner li {
+			line-height: 2em;
+		}
+		.logo a{
+			margin:0 auto;
+		}
+		.banner ul{
+			text-align:right;
+			padding-top: 30px;
+		}
+		.initiatives ul a{
+			padding:15px 15px;
+		}
+		.flyOut .promo h2{ font-size:1.5em;}
+		.flyOut .promo,
+		.flyOut .subNav{
+			display:block;
+			width:100%;
+		}
+		.flyOut .padding{
+			padding:30px;
+		}
+		.flyOut .promo .buttonBox{
+			  margin:30px 0 0 0;
+		}
+		.contentPage #content{
+			margin:10% 0;
+		}
+	}
+	@media screen and (max-width:800px) {
+		.col_1-of-3,
+		.col_2-of-3,
+		.col_1-of-2{
+			width:100%;
+			margin-bottom:10%;
+		}
+		#content .col_2-of-3 .padding{
+			padding:0;
+		}
+		.newsFeature,
+		.newsList{
+			margin-right:0;
+			margin-left:0;
+		}
+		.promotions,
+		.newsSection{
+			padding:10% 0;
+		}
+		.promotions h2{
+			padding-top:0;
+		}
+		.promotions h2,
+		.promotions .label{min-height:0}
+	}
+	@media screen and (max-width:650px) {
+		body:after {content: 'mobile'; display: none;}
+		
+		#menuToggle{
+			display:block;
+		}
+		.ribbon form,
+		.group{
+			width:100%;
+			float:none;
+		}
+		.logo{
+			float:none;
+		}
+		.banner nav{
+			width:100%;
+			padding-top:15px;
+		}
+		.banner ul{
+			text-align:left;
+			padding:0;
+		}
+		.banner li{
+			display:block;
+			margin-left:0;
+		}
+		.banner nav a{
+			display:block;
+			padding:1em;
+			border-top:solid 1px #bebebe;
+		}
+		.ribbon .globalNav{
+			text-align:left;
+			float:none;
+		}
+		.ribbon .search{
+			width:80%;
+			text-indent:5px;
+			padding:5px 0;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			border-radius:0;
+		}
+		.ribbon .go{
+			width:20%;
+			padding:0
+		}
+		.pageNav li{
+			float:none;
+		}
+		.content .pageNav a{
+			padding:1em;
+			margin-right:0;
+			margin-bottom:1px;
+		}
+		.initiatives li{
+			width:100%;
+		}
+		.initiatives ul a{
+			min-height:2.2em;
+		}
+		.flyOut .spacer{
+			margin:0;
+		}
+		.flyOut .promo {
+			display:none;
+		}
+		.flyOut .promo .button{
+			padding:0.5em;
+		}
+		.flyOut .promo .padding{
+			padding-right: 80px;
+		}
+		.fab{
+			position: relative;
+			width:auto;
+			background-image:none;
+			text-indent:0;
+			height: 50px;
+			display: block;
+			background-color:$gen;
+			border-radius:0;
+			padding: 15px 15px;
+			height:auto;
+			text-decoration:none;
+		}
+		.navBG{
+			display:none;
+		}
+		.navArea,
+		.initiatives nav{
+			padding-top:0;
+		}
+		
+		.banner nav,
+		.initiatives{
+			display:none;
+		}
+		.newsSection h2{ text-align:center; }
+
+	}
+
+
+
+/* ==========================================================================
+   `helper classes
+   ========================================================================== */
+
+	#navigation,
+	#content{outline:none !important;}
+
+	.ir {
+		background-color: transparent;
+		border: 0;
+		overflow: hidden;
+		text-indent: -9999px;
+	}
+	
+	.ir:before {
+		content: "";
+		display: block;
+		width: 0;
+		height: 150%;
+	}
+	
+	.hidden {
+		display: none !important;
+		visibility: hidden;
+	}
+	
+	.visuallyhidden {
+		border: 0;
+		clip: rect(0, 0, 0, 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
+	
+	.visuallyhidden.focusable:active,
+	.visuallyhidden.focusable:focus {
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
+	}
+	
+	.invisible {
+		visibility: hidden;
+	}
+	
+	.clearfix:before,
+	.clearfix:after {
+		content: " ";
+		display: table;
+	}
+	
+	.clearfix:after {
+		clear: both;
+	}
+	
+	.clearfix {
+		zoom: 1;
+	}
+
+
+
+/* ==========================================================================
+   `print styles
+   ========================================================================== */
+
+	@media print {
+		* {
+			background: transparent !important;
+			color: #000 !important; /* Black prints faster: h5bp.com/s */
+			box-shadow: none !important;
+			text-shadow: none !important;
+		}
+	
+		a,
+		a:visited {
+			text-decoration: underline;
+		}
+	
+		a[href]:after {
+			content: " (" attr(href) ")";
+		}
+	
+		abbr[title]:after {
+			content: " (" attr(title) ")";
+		}
+	
+		/*
+		 * Don't show links for images, or javascript/internal links
+		 */
+	
+		.ir a:after,
+		a[href^="javascript:"]:after,
+		a[href^="#"]:after {
+			content: "";
+		}
+	
+		pre,
+		blockquote {
+			border: 1px solid #999;
+			page-break-inside: avoid;
+		}
+	
+		thead {
+			display: table-header-group; /* h5bp.com/t */
+		}
+	
+		tr,
+		img {
+			page-break-inside: avoid;
+		}
+	
+		img {
+			max-width: 100% !important;
+		}
+	
+		@page {
+			margin: 0.5cm;
+		}
+	
+		p,
+		h2,
+		h3 {
+			orphans: 3;
+			widows: 3;
+		}
+	
+		h2,
+		h3 {
+			page-break-after: avoid;
+		}
+	}
+
+
+
+/* ==========================================================================
+   `reference
+   ========================================================================== 
+   
+	html5-boilerplate
+	https://github.com/h5bp/html5-boilerplate/blob/master/doc/TOC.md
+
+
+*/
+
+/*voodoo logo*/@font-face{font-family:'voodoo';src:url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQ0AAsAAAAABhQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAABCAAAAPsAAAFEBMC9q0ZGVE0AAAIEAAAAGgAAABxmnNGeR0RFRgAAAiAAAAAcAAAAIAAyAARPUy8yAAACPAAAAE0AAABgStjXTGNtYXAAAAKMAAAAUQAAAWID9vVjaGVhZAAAAuAAAAAvAAAANvnibIZoaGVhAAADEAAAAB4AAAAkAM3//2htdHgAAAMwAAAAFAAAABQBZwAAbWF4cAAAA0QAAAAGAAAABgAFUABuYW1lAAADTAAAANwAAAF68akh9XBvc3QAAAQoAAAADAAAACAAAwAAeJxFTD1Lw1AUPbdJGinhaSRVh2ccu0mm/gMFxcGtk5sURDGLujhqcbiOOugo4qZLnfQv+AOUToKgD6FxzHZ9aUy8w+GeT4Lrgoj8ozTdTlNQA4Rurhv5opMvuBw4HLhxi4S5xMDnk8x4GrvTGpjROAg1lKbuLJyiOwWF6HB/ZzVJknLzb9neJlbQozN4RE7vcviUqXtXxHwPBKEFGUfHgrkawsr418rIJGxqGFdGQWP1Jog7e4O2yPvrxWhCmrY9v2GLX482aT8xxWdqWmlL6lOwdXUtWHu+sws3/T4Lll/WRR5+bj3Fxu1kvvqIuH16PmLmJgetXxo8jMMAeJxjYGBgZACCM7aLzoPos/rT02E0AEhLBnAAAHicY2BkYGDgA2IJBhBgYmAEQhYwBvEYAAR2ADd4nGNgZghjnMDAysDB4MjgxsDAwAelDRhYGCQZGJgYWJkZYIBRgAEBAtJcUxgcGFI+MDDE/f/FwMkQx8DeAFQDlvQEYgUgZAQAgIEJPwAAAHicY2BgYGaAYBkGRgYQiAHyGMF8FgYHIM3DwMHABGQzMKQw5DOUfWD4/x+sDon3f97/Sf97BVigJsABIxsDuhBNABOSlRCKmQ62EgcAY2AOSQAAAHicY2BkYGAAYo5/O3bE89t8ZeBmSAGKMJzVn56OoP//BIrGAbkcDEwgUQBGxws/AHicY2BkYGCI+/+TgZMhhYHh/xwgCRJBBqwAeq8EygAAAGQAAABZAAAATgAAAFwAAAAAAAAAAFAAAAUAAHicbZBLasMwEIY/J45LSeiuXYtClzaWs8u6+ABdZB+IMIFggfI4Sk6QXY7RA/QEuUt+y1p0EQ2j+TT880DAggsZw8koeEs84YWvxFM+OSTOpbkmnjHnN3Ehu0uZ5a/KLGLVwBN1fE885ZsycR7njjzjg1viQvk/znjZNt6cvd96xR8cHSf2bAh6uu603whaiXqOMQYpHIaGilpxJf/fbMwssVpk8EYqqzet74+tD50zTVWblRmHCpa2tGVTW2mebrXWvKDv2cUtjLoNk1m7cNj53tiqfl74AOQdNot4nGNgZsALAAB9AAQ=) format('woff'), url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAANAIAAAwBQRkZUTWac0Z4AAAWUAAAAHEdERUYANAAGAAAFdAAAACBPUy8ySrfW4gAAAVgAAABWY21hcAX8+GwAAAHMAAABYmdhc3D//wADAAAFbAAAAAhnbHlmKzSDIwAAA0AAAAB4aGVhZPnibIUAAADcAAAANmhoZWEAzgAAAAABFAAAACRobXR4AYgAAAAAAbAAAAAcbG9jYQBCAGAAAAMwAAAAEG1heHAASgALAAABOAAAACBuYW1l8akh9QAAA7gAAAF6cG9zdE5an+QAAAU0AAAAOAABAAAAAQAAcabNnl8PPPUACwBkAAAAAM0vl2cAAAAAzS+XZwAA//gAZABeAAAACAACAAAAAAAAAAEAAABe//gACQBkAAD/nABkAAEAAAAAAAAAAAAAAAAAAAAHAAEAAAAHAAgAAQAAAAAAAgAAAAEAAQAAAEAAAAAAAAAAAQBWAZAABQAIAEEARgAAAA4AQQBGAAAAMAAEABkAAAIABQMAAAAAAAAAAAABEAAAAAAAAAAAAAAAUGZFZABAAGTwAABe//oACQBeAAiAAAABAAAAAAAAAGQAAAAAAAAAIQAAAFkAAABOAAAAXAAAAAAAAAAAAAMAAAADAAAAHAABAAAAAABcAAMAAQAAABwABABAAAAADAAIAAIABAAAAGQAbwB28AD//wAAAAAAZABvAHbwAP//AAD/oP+U/48QBgABAAAAAAAAAAAAAAAAAAABBgAAAQAAAAAAAAABAgAAAAIAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAwAAAAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgAkADAAPAABAAD/+gBQAEoABwAAPAE2MhYUBiIXIhcXIhEiFxciFwAAAAABAAD/+gBHAEoABwAAFzI2NCYrARUeERcXER4GFyIXUAAAAAABAAD/+ABeAEoAAgAANwcnXi8vSlFRAAABAAD/+gBkAF4AAgAANRcjZGReZAAAAAAAAAwAlgABAAAAAAABAAYADgABAAAAAAACAAcAJQABAAAAAAADACIAcwABAAAAAAAEAAYApAABAAAAAAAFAAsAwwABAAAAAAAGAAYA3QADAAEECQABAAwAAAADAAEECQACAA4AFQADAAEECQADAEQALQADAAEECQAEAAwAlgADAAEECQAFABYAqwADAAEECQAGAAwAzwB2AG8AbwBkAG8AbwAAdm9vZG9vAABSAGUAZwB1AGwAYQByAABSZWd1bGFyAABGAG8AbgB0AEYAbwByAGcAZQAgADIALgAwACAAOgAgAHYAbwBvAGQAbwBvACAAOgAgADMAMQAtADEALQAyADAAMQAzAABGb250Rm9yZ2UgMi4wIDogdm9vZG9vIDogMzEtMS0yMDEzAAB2AG8AbwBkAG8AbwAAdm9vZG9vAABWAGUAcgBzAGkAbwBuACAAMQAuADAAAFZlcnNpb24gMS4wAAB2AG8AbwBkAG8AbwAAdm9vZG9vAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAEAAgBSAEcAWQECB3VuaUYwMDAAAAAB//8AAgABAAAADgAAABgAAAAAAAIAAQADAAYAAQAEAAAAAgAAAAAAAQAAAADMPaLPAAAAAM0vl2cAAAAAzS+XZw==) format('truetype');font-weight: normal; font-style: normal;}.vclogo{font-family:'voodoo';font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased;} a.vclogo{text-decoration:none;}
